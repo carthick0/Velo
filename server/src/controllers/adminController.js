@@ -1,4 +1,6 @@
+const { default: mongoose } = require("mongoose");
 const DriverLocation=require("../models/driver-location");
+const adminService = require("../services/adminService");
 
 class AdminController {
   async getAllDriverDetails(req, res) {
@@ -86,6 +88,18 @@ class AdminController {
       console.log(res);
     } catch (error) {
       res.status(500).json({ error: error.message });
+    }
+  }
+  async getAllDrivers(req,res){
+    try {
+      const response=await adminService.getAllDrivers();
+      return res.status(200).json({
+        message:"Drivers fetched successfully",
+        response
+      })
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+      console.log(error);
     }
   }
 }
